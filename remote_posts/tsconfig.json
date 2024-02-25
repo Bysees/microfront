@@ -1,0 +1,41 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+
+    /* Bundler mode */
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "baseUrl": "./src",
+    "paths": {
+      //! Не знаю зачем по 2 варианта каждого пути, скопировал из https://github.com/sldk-yuri/realworld-react-fsd/blob/master/tsconfig.json
+      "app": ["./app"],
+      "app/*": ["./app/*"],
+      "pages": ["./pages"],
+      "pages/*": ["./pages/*"],
+      "widgets": ["./widgets"],
+      "widgets/*": ["./widgets/*"],
+      "features": ["./features"],
+      "features/*": ["./features/*"],
+      "entities": ["./entities"],
+      "entities/*": ["./entities/*"],
+      "shared": ["./shared"],
+      "shared/*": ["./shared/*"]
+    },
+
+    /* Linting */
+    "strict": true,
+    // "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true
+  },
+  "include": ["src"],
+  "references": [{ "path": "./tsconfig.node.json" }]
+}
