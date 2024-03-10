@@ -1,15 +1,17 @@
 import { Suspense, lazy } from 'react'
+import { Layout } from './layout'
 
 //@ts-ignore
-const AppPosts = lazy(() => import('remote_posts/AppPosts'))
+import AppPosts from 'remote_posts/AppPosts'
+// const AppPosts = lazy(() => import('remote_posts/AppPosts'))
 
 const App = () => {
   return (
     <div>
-      <h1>Hello world</h1>
-      <Suspense fallback={<div>Loading...</div>}>
-        <AppPosts />
-      </Suspense>
+      {/* <Suspense fallback={<div>Loading...</div>}> */}
+      {/* <AppPosts /> */}
+      <Layout content={<AppPosts />} />
+      {/* </Suspense> */}
     </div>
   )
 }

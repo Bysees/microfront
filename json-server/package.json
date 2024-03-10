@@ -1,13 +1,16 @@
 {
   "name": "json-server",
   "version": "1.0.0",
-  "description": "",
+  "description": "Mocked json server",
   "main": "index.js",
+  "type": "commonjs",
   "scripts": {
-    "server": "json-server --delay 300 db.json",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "json-server --delay=300 index.js "
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "@faker-js/faker": "^8.4.1"
+  }
 }

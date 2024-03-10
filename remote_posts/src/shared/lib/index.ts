@@ -1,0 +1,1 @@
+export { extractResponsePages } from './extractResponsePages'

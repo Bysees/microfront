@@ -1,6 +1,9 @@
+import { IUser } from "entities/user"
+
 export type IPost = {
-  userId: number
+  userId: IUser['id']
   id: number | string
   title: string
   body: string
+  createdAt: string
 }

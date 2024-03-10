@@ -6,7 +6,7 @@ type Pages = {
 }
 
 export const extractResponsePages = (links: string[]): Pages => {
-  return links.reduce((acc, link) => {
+  const pages = links.reduce((acc, link) => {
     const match = link.match(/_page=(\d+)/)
     const rel = link.match(/rel="([^"]+)"/)
 
@@ -18,4 +18,6 @@ export const extractResponsePages = (links: string[]): Pages => {
 
     return acc
   }, {} as Pages)
+
+  return pages
 }

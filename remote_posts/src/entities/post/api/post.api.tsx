@@ -1,19 +1,22 @@
 import axios from 'axios'
 import { GetPostListResponse, PostParams } from '../model/types/post.api.types'
 import { IPost } from '../model/types/post.types'
-import { extractResponsePages } from '../lib/extractResponsePages'
+import { extractResponsePages } from 'shared/lib'
 
-// const BASE_URL = 'https://jsonplaceholder.typicode.com/'
+// TODO Вынести в shared, создать axios instance
 const BASE_URL = 'http://localhost:3000'
 
 export const getPostList = async (params: PostParams): Promise<GetPostListResponse> => {
   const response = await axios.get<IPost[]>(`${BASE_URL}/posts`, {
-    params
+    params: {
+      ...params,
+      _sort: `${params._sort},id` //* Для корректной сортировки по всем сущностям в БД должно присутствовать id.
+    }
   })
 
   let totalCount: string | number | undefined = response.headers['x-total-count']
   totalCount = typeof totalCount === 'string' ? +totalCount : undefined
-  const links = response.headers['link']?.split(',') || []
+  const links = response.headers['link']?.split(', <') || []
   const pages = extractResponsePages(links)
   const posts = response.data
 

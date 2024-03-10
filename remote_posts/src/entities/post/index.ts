@@ -1,3 +1,5 @@
 export { createPost, deletePost, getPostList } from './api/post.api'
 export type { IPost } from './model/types/post.types'
+export type { SortPostValue, SortPostOrder } from './model/types/post.api.types'
 export { PostList } from './ui/post.list'
+export { PostListSkeleton } from './ui/post.list.skeleton'

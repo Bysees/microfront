@@ -1,36 +1,59 @@
-import { useState } from 'react'
-import { IPost } from '../model/types/post.types'
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
-import Accordion from '@mui/material/Accordion'
-import AccordionDetails from '@mui/material/AccordionDetails'
-import AccordionSummary from '@mui/material/AccordionSummary'
 import Typography from '@mui/material/Typography'
 
+import Card from '@mui/material/Card'
+import CardHeader from '@mui/material/CardHeader'
+import CardContent from '@mui/material/CardContent'
+import CardActions from '@mui/material/CardActions'
+import Avatar from '@mui/material/Avatar'
+import IconButton from '@mui/material/IconButton'
+import FavoriteIcon from '@mui/icons-material/Favorite'
+
+import { Stack } from '@mui/material'
+import dayjs from 'dayjs'
+import localizedFormat from 'dayjs/plugin/localizedFormat'
+
+import { IPost } from '../model/types/post.types'
+import { IUser } from 'entities/user'
+
+dayjs.extend(localizedFormat)
+
 type PostListProps = {
-  postList: IPost[]
+  userPostList: {
+    post: IPost
+    user: IUser
+  }[]
 }
 
 const PostList = (props: PostListProps) => {
-  const { postList } = props
-  const [expandedPost, setExpandedPost] = useState<{ [Key in IPost['id']]?: boolean }>({})
+  let { userPostList } = props
 
-  return postList.map((post) => (
-    <Accordion
-      key={post.id}
-      sx={{ boxShadow: 4 }}
-      expanded={expandedPost[post.id] ?? false}
-      onChange={(_, expanded) => {
-        setExpandedPost({ ...expandedPost, [post.id]: expanded })
-      }}>
-      <AccordionSummary expandIcon={<ArrowDropDownIcon />}>
-        <Typography variant='overline'>id: {post.id}|</Typography>
-        <Typography variant='overline'> {post.title}</Typography>
-      </AccordionSummary>
-      <AccordionDetails>
-        <Typography variant='body1'>{post.body}</Typography>
-      </AccordionDetails>
-    </Accordion>
-  ))
+  return (
+    <Stack spacing={2}>
+      {userPostList.map(({ post, user }) => {
+        return (
+          <Card key={post.id} sx={{ boxShadow: 5 }}>
+            <CardHeader
+              alt='user avatar'
+              avatar={<Avatar src={user.avatar} />}
+              title={user.firstName}
+              subheader={dayjs(post.createdAt).format('LLL')}
+            />
+            <CardContent>
+              <Typography variant='subtitle1' fontWeight={600} color={'text.secondary'} mb={2}>
+                {post.title}
+              </Typography>
+              <Typography variant='body2'>{post.body}</Typography>
+            </CardContent>
+            <CardActions disableSpacing>
+              <IconButton aria-label='add to favorites'>
+                <FavoriteIcon />
+              </IconButton>
+            </CardActions>
+          </Card>
+        )
+      })}
+    </Stack>
+  )
 }
 
 export { PostList }
